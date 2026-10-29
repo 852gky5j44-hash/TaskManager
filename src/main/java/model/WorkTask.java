@@ -23,7 +23,6 @@ public class WorkTask implements Task {
     @Override
     public String getTaskType() { return "Work"; }
 
-    // Vlastní gettery a settery pro specifický atribut
     public String getDeadline() { return deadline; }
     public void setDeadline(String deadline) { this.deadline = deadline; }
 }
