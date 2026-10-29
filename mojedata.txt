@@ -1,4 +1,3 @@
-Work,  velky projekt, false,  31.12.2026
-Personal,  snist fazole, false,  Vysoka
-Work, velky projekt, true, 31.12.2026
-Personal, snist fazole, false, Vysoka
+Work, oholit se do prace, false,    30.10.2026
+Personal, konfrontovat souseda, false,    Vysoka
+
