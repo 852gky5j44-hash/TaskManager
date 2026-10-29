@@ -21,7 +21,7 @@ public class Main {
         WorkTask projekt = new WorkTask("velky projekt", "31.12.2026");
         PersonalTask fazole = new PersonalTask("snist fazole", "Vysoka");
 
-        manazer.addTask();
+        manazer.addTask(projekt);
         manazer.addTask(fazole);
 
         projekt.setCompleted(true);
