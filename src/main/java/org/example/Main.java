@@ -18,13 +18,13 @@ public class Main {
         List<Task> stareUkoly = uloziste.nactiData();
         manazer.setTasks(stareUkoly);
 
-        WorkTask skola = new WorkTask("velky projekt", "31.12.2026");
-        PersonalTask jidlo = new PersonalTask("snist fazole", "Vysoka");
+        WorkTask projekt = new WorkTask("velky projekt", "31.12.2026");
+        PersonalTask fazole = new PersonalTask("snist fazole", "Vysoka");
 
-        manazer.addTask(skola);
-        manazer.addTask(jidlo);
+        manazer.addTask();
+        manazer.addTask(fazole);
 
-        skola.setCompleted(true);
+        projekt.setCompleted(true);
 
         System.out.println("\nnedokoncene ukoly: ");
         List<Task> nedokoncene = manazer.getIncompleteTasks();
