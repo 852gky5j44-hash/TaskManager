@@ -1,17 +1,39 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import model.PersonalTask;
+import model.Task;
+import model.TaskManager;
+import model.TaskStorage;
+import model.WorkTask;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Spravce ukolu");
+
+        TaskManager manazer = new TaskManager();
+        TaskStorage uloziste = new TaskStorage();
+
+        List<Task> stareUkoly = uloziste.nactiData();
+        manazer.setTasks(stareUkoly);
+
+        WorkTask skola = new WorkTask("velky projekt", "31.12.2026");
+        PersonalTask jidlo = new PersonalTask("snist fazole", "Vysoka");
+
+        manazer.addTask(skola);
+        manazer.addTask(jidlo);
+
+        skola.setCompleted(true);
+
+        System.out.println("\nnedokoncene ukoly: ");
+        List<Task> nedokoncene = manazer.getIncompleteTasks();
+        for (Task ukol : nedokoncene) {
+            System.out.println("- " + ukol.getTitle());
         }
+
+        uloziste.ulozData(manazer.getAllTasks());
+
+        System.out.println("ulozeno");
     }
 }

@@ -53,7 +53,7 @@ public class TaskStorage {
                 String typ = slova[0];
                 String nazev = slova[1];
                 String hotovoText = slova[2];
-                String detail = slova[3]; // Tady je buď deadline, nebo priorita
+                String detail = slova[3];
 
                 boolean jeHotovo = false;
                 if (hotovoText.equals("true")) {
