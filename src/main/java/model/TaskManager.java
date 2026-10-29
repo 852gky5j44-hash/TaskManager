@@ -21,13 +21,9 @@ public class TaskManager {
     }
 
     public List<Task> getIncompleteTasks() {
-        List<Task> nedokoncene = new ArrayList<>();
-        for (Task ukol : tasks) {
-            if (ukol.isCompleted() == false) {
-                nedokoncene.add(ukol);
-            }
-        }
-        return nedokoncene;
+        return tasks.stream()
+                .filter(ukol -> !ukol.isCompleted())
+                .collect(Collectors.toList());
     }
 
     public void setTasks(List<Task> loadedTasks) {
