@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Spravce ukolu");
+        System.out.println("Správce úkolů");
 
         TaskManager manazer = new TaskManager();
         TaskStorage uloziste = new TaskStorage();
@@ -18,22 +18,41 @@ public class Main {
         List<Task> stareUkoly = uloziste.nactiData();
         manazer.setTasks(stareUkoly);
 
-        WorkTask projekt = new WorkTask("velky projekt", "31.12.2026");
-        PersonalTask fazole = new PersonalTask("snist fazole", "Vysoka");
+        WorkTask skola = new WorkTask("Velký Java projekt", "31.12.2026");
+        PersonalTask jidlo = new PersonalTask("Sníst fazole", "Vysoká");
+        WorkTask oprava = new WorkTask("Opravit chyby v kódu", "Zítra");
 
-        manazer.addTask(projekt);
-        manazer.addTask(fazole);
+        manazer.addTask(skola);
+        manazer.addTask(jidlo);
+        manazer.addTask(oprava);
 
-        projekt.setCompleted(true);
+        skola.setCompleted(true);
+        oprava.setCompleted(true);
 
-        System.out.println("\nnedokoncene ukoly: ");
+
+        System.out.println("\nVšechny názvy úkolů");
+        List<String> nazvy = manazer.getAllTaskTitles();
+        for (String nazev : nazvy) {
+            System.out.println("- " + nazev);
+        }
+
+        System.out.println("\nNedokončené úkoly");
         List<Task> nedokoncene = manazer.getIncompleteTasks();
         for (Task ukol : nedokoncene) {
             System.out.println("- " + ukol.getTitle());
         }
 
-        uloziste.ulozData(manazer.getAllTasks());
+        System.out.println("\nHledání slova 'projekt'");
+        List<Task> nalezene = manazer.findTasksByName("projekt");
+        for (Task ukol : nalezene) {
+            System.out.println("- " + ukol.getTitle());
+        }
 
-        System.out.println("ulozeno");
+        System.out.println("\nStatistiky");
+        long pocetHotovych = manazer.countCompletedTasks();
+        System.out.println("Počet dokončených úkolů: " + pocetHotovych);
+
+        uloziste.ulozData(manazer.getAllTasks());
+        System.out.println("\nVšechna data úspěšně uložena");
     }
 }

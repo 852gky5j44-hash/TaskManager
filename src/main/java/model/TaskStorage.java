@@ -13,17 +13,16 @@ public class TaskStorage {
             FileWriter zapisovac = new FileWriter("mojedata.txt");
 
             for (Task ukol : seznamUkolu) {
-
-                String radek = ukol.getTaskType() + ", " + ukol.getTitle() + ", " + ukol.isCompleted();
+                String radek = ukol.getTaskType() + "," + ukol.getTitle() + "," + ukol.isCompleted();
 
                 if (ukol.getTaskType().equals("Work")) {
                     WorkTask pracUkol = (WorkTask) ukol;
-                    radek = radek + ", " + pracUkol.getDeadline();
+                    radek = radek + "," + pracUkol.getDeadline();
                 }
 
                 if (ukol.getTaskType().equals("Personal")) {
                     PersonalTask osobniUkol = (PersonalTask) ukol;
-                    radek = radek + ", " + osobniUkol.getPriority();
+                    radek = radek + "," + osobniUkol.getPriority();
                 }
 
                 zapisovac.write(radek + "\n");
@@ -32,12 +31,10 @@ public class TaskStorage {
             zapisovac.close();
 
         } catch (Exception chyba) {
-            System.out.println(chyba.getMessage());
+            System.out.println("Chyba při ukládání: " + chyba.getMessage());
         }
     }
-    ///////////
-     ///
-     ///
+
     public List<Task> nactiData() {
         List<Task> nacteneUkoly = new ArrayList<>();
 
@@ -47,35 +44,34 @@ public class TaskStorage {
 
             while (ctecta.hasNextLine()) {
                 String radek = ctecta.nextLine();
-
                 String[] slova = radek.split(",");
 
-                String typ = slova[0];
-                String nazev = slova[1];
-                String hotovoText = slova[2];
-                String detail = slova[3];
+                // Ochrana proti prázdným řádkům nebo poškozeným datům
+                if (slova.length >= 4) {
+                    String typ = slova[0];
+                    String nazev = slova[1];
+                    String hotovoText = slova[2];
+                    String detail = slova[3];
 
-                boolean jeHotovo = false;
-                if (hotovoText.equals("true")) {
-                    jeHotovo = true;
-                }
+                    boolean jeHotovo = hotovoText.equals("true");
 
-                if (typ.equals("Work")) {
-                    WorkTask novy = new WorkTask(nazev, detail);
-                    novy.setCompleted(jeHotovo);
-                    nacteneUkoly.add(novy);
-                }
+                    if (typ.equals("Work")) {
+                        WorkTask novy = new WorkTask(nazev, detail);
+                        novy.setCompleted(jeHotovo);
+                        nacteneUkoly.add(novy);
+                    }
 
-                if (typ.equals("Personal")) {
-                    PersonalTask novy = new PersonalTask(nazev, detail);
-                    novy.setCompleted(jeHotovo);
-                    nacteneUkoly.add(novy);
+                    if (typ.equals("Personal")) {
+                        PersonalTask novy = new PersonalTask(nazev, detail);
+                        novy.setCompleted(jeHotovo);
+                        nacteneUkoly.add(novy);
+                    }
                 }
             }
             ctecta.close();
 
         } catch (Exception chyba) {
-            System.out.println("soubor neexistuje");
+            System.out.println("Soubor neexistuje nebo je prázdný.");
         }
 
         return nacteneUkoly;

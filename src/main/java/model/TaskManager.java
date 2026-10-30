@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TaskManager {
     private List<Task> tasks;
@@ -20,13 +19,31 @@ public class TaskManager {
         return tasks;
     }
 
+    public void setTasks(List<Task> loadedTasks) {
+        this.tasks = loadedTasks;
+    }
+
     public List<Task> getIncompleteTasks() {
         return tasks.stream()
                 .filter(ukol -> !ukol.isCompleted())
                 .collect(Collectors.toList());
     }
 
-    public void setTasks(List<Task> loadedTasks) {
-        this.tasks = loadedTasks;
+    public List<Task> findTasksByName(String keyword) {
+        return tasks.stream()
+                .filter(ukol -> ukol.getTitle().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllTaskTitles() {
+        return tasks.stream()
+                .map(Task::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    public long countCompletedTasks() {
+        return tasks.stream()
+                .filter(Task::isCompleted)
+                .count();
     }
 }
